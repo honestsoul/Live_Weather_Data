@@ -1,0 +1,14 @@
+{% extends 'input.html' %}
+{% block container %}
+  <div class="top-pad">
+      <div class="well">
+        <h2>
+
+          {% for key, value in text.items() %}
+             <h1>Key: {{key}}</h1>
+             <h2>Value: {{value}}</h2>
+       {% endfor %}
+        </h2>
+      </div>
+  </div>
+{% endblock %}

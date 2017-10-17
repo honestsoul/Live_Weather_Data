@@ -1,0 +1,78 @@
+
+{% extends 'base.html' %}
+ 
+{% block container %}
+<form class="form-horizontal" action="/home" method="POST">
+<fieldset>
+
+
+
+<!-- Form Name -->
+<legend>Please Select your City and Country</legend>
+
+<!-- Search input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="city">City</label>
+  <div class="col-md-4">
+    <input id="city" name="city" type="search" placeholder="Enter your City Name" class="form-control input-md" required="">
+  </div>
+</div>
+
+
+<!-- Search input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="country">Country</label>
+  <div class="col-md-4">
+    <input id="country" name="country" type="search" placeholder="Enter your country code" class="form-control input-md" required="">
+  </div>
+</div>
+
+<!-- Appended Input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="date">Select Date</label>
+  <div class="col-md-4">
+    <div class="input-group">
+      <input id="date" name="date" type="date" >
+      <span class="input-group-addon">Calender</span>
+    </div>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <div class="col-md-4">
+    <input type="submit" value="Get the Weather Data" button id="singlebutton" name="singlebutton" class="btn btn-primary">
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+
+<div class="container">
+  <h2>Weather Report</h2>           
+  <table class="table table-bordered">
+    <thead>
+      
+      <tr>
+        {% for key, value in text.items() %}
+        <th>{{key}}</th>
+        {% endfor %}
+      </tr>
+      
+    </thead>
+    <tbody>
+        
+      <tr>
+          {% for key, value in text.items() %}
+        <td>{{value}}</td>
+        {% endfor %}
+      </tr>
+      
+    </tbody>
+    
+  </table>
+</div>
+
+
+{% endblock %}
