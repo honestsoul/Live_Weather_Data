@@ -3,6 +3,10 @@ sys.path.append("live_weather")
 from live_weather  import app
 import unittest 
 
+#######################################################################################################
+#ToDO -- We need to implement the test cases using following approch for the remaining functionalities#
+#This will make things easier to write the test cases for remaning fucntions                          #
+#######################################################################################################
 class FlaskLiveWeatherTests(unittest.TestCase): 
 
     @classmethod
