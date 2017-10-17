@@ -1,14 +1,19 @@
 from flask import Flask, request, render_template, abort
 from datetime import datetime
+import helper_util 
 import requests
 import shelve
-API_URL = "http://api.openweathermap.org/data/2.5/weather?id={0}&appid=0218a2cb699302211c6d1248b1e83e67&units=Imperial"
+import const
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('input.html', text=request.form)
+
+@app.errorhandler(401)
+def custom_401(error):
+    return Response({"Message":"Error"})
 
 @app.route("/home", methods=['POST'])
 def echo():
@@ -20,23 +25,24 @@ def echo():
 			if citi_id in db1:
 				city_id=db1[citi_id]['id']
 				if city_id:
-					def api_data():
-						print(API_URL.format(city_id))
-						response=requests.get(API_URL.format(city_id))
-						print(response)
-						data=response.json()
-						text={'id': str(data['id']), 'name': data['name'], 'temp_min': data['main']
-								['temp_min'], 'temp_max': data['main']['temp_max'], 'date': data['dt']}
-						return text
 					with shelve.open(r'db\temperature') as db:
 						if str(city_id) in db:
 							text_dict=db[str(city_id)]
 							if date in text_dict:
 								text = text_dict[date]
 							else:
-								text = api_data()
+								current_date = helper_util.get_utc_time()
+								print(date)
+								print(current_date)
+								if date < current_date:
+									text = {"message":"Historical data not availabe for the selected city"}
+								elif date > current_date:
+									text = {"message":"We don't provide forcast"}
+								else:
+									text = helper_util.store_city_temp_data(str(city_id))
 						else:
-							text = api_data()		
+							print(str(city_id))
+							text = helper_util.store_city_temp_data(str(city_id))		
 			else:
 				text={'output':"City data not found"}
 		except KeyError :
