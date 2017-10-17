@@ -11,13 +11,15 @@ app = Flask(__name__)
 def home():
     return render_template('input.html', text=request.form)
 
+#ToDo - Need to work on this to implement more error codes
 @app.errorhandler(401)
 def custom_401(error):
-    return Response({"Message":"Error"})
+    return {"Message":"Error"}
 
 @app.route("/home", methods=['POST'])
 def echo():
 	text=request.form
+	#The Shelve model is used for data store
 	with shelve.open(r'db\cities') as db1:
 		date=''.join(text.getlist('date')[0].split('-'))
 		citi_id=text.getlist('city')[0] + text.getlist('country')[0]
@@ -32,8 +34,6 @@ def echo():
 								text = text_dict[date]
 							else:
 								current_date = helper_util.get_utc_time()
-								print(date)
-								print(current_date)
 								if date < current_date:
 									text = {"message":"Historical data not availabe for the selected city"}
 								elif date > current_date:
