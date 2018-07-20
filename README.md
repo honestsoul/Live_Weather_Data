@@ -13,10 +13,10 @@ HTML5, Bootstrap 3.x ,Jinja2
 
 Note : 
 
-As I was not able to work on this weekend, and have worked only for 4 hours  below are the area of improvement - 
+As I was not able to work on the below due to office work but below are the area of improvement - 
 
-1. Improve further to scale in a distributed fashion.
-2. Modularize further
+1. Improve to scale in a distributed fashion.
+2. Modularize the code further.
 3. Create an Standard and Secure DB .
 4. Improve the batch job in scheduler.py
 5. Create an Eye catching UI template
